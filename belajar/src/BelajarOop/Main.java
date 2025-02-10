@@ -1,14 +1,24 @@
 package BelajarOop;
 
+class Mahasiswa {
+   
+}
+
 public class Main {
-    String fname = "Fadilah";
-    String lname = "Dama";
-    int age = 18;
+
+    public void fullthrothle() {
+        System.out.println("Mobil akan melaju dengan kecepatan penuh!");
+    }
+
+    public void kecepatan(int kecepatan) {
+        System.out.println("Mobil akan melaju dengan kecepatan " + kecepatan + " km/jam!");
+    }
+   
     public static void main(String[] args) {
-        Main myObj = new Main();
-
-
-        System.out.println("my name is " + myObj.fname + " " + myObj.lname);
-        System.out.println("my age is " + myObj.age + " years old");
+       
+        Main myCar = new Main();
+        myCar.fullthrothle();
+        myCar.kecepatan(250);
+       
     }
 }

@@ -24,6 +24,6 @@ public class rata2_usia {
             lowestage = usia;
         }
        }
-       System.out.println("umur terendah dalam array adalah : "+lowestage);
+       System.out.println("umur terendah dalam array adalah : "+ lowestage);
     }
 }
