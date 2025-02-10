@@ -1,9 +1,5 @@
 package BelajarOop;
 
-class Mahasiswa {
-   
-}
-
 public class Main {
 
     public void fullthrothle() {
