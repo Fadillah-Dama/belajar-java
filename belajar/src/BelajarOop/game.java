@@ -24,6 +24,17 @@ class Player {
         System.out.println("Level: " + this.level);
     }
 
+    void attack(Enemy enemy) {
+        double damage = this.weapon.damage * this.level;
+        System.out.println("Player " + this.name + " attacks " + enemy.name + " with " + damage + " damage");
+        enemy.getAttacked(damage);
+    }
+
+    void getAttacked(double damage) {
+        this.health -= damage;
+        System.out.println("Player " + this.name + " is attacked " +" with " + damage + " damage");
+    }
+
 }
 
 // weapon
@@ -63,6 +74,18 @@ class Enemy {
         System.out.println("Health: " + this.health);
     }
 
+    void attack(Player player) {
+        double damage = this.weapon.damage;
+        System.out.println("Enemy " + this.name + " attacks " + player.name + " with " + damage + " damage");
+        player.getAttacked(damage);
+    }
+
+    void getAttacked(double damage) {
+        this.health -= damage;
+        System.out.println("Enemy " + this.name + " is attacked " +" with " + damage + " damage");
+
+    }
+
 }
 
 public class game {
@@ -86,6 +109,17 @@ public class game {
         enemy1.showInformation();
         enemy1.equipWeapon(mace);
         enemy1.weapon.show();
+
+        System.out.println("\n");
+
+        // gelud
+        player1.attack(enemy1);
+        enemy1.showInformation();
+
+        System.out.println("\n");
+
+        enemy1.attack(player1);
+        player1.showInformation();
 
     }
 }
