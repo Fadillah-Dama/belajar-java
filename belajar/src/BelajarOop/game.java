@@ -7,6 +7,7 @@ class Player {
     int level;
 
     Weapon weapon;
+    Armor armor;
 
     Player(String name, double health, int level) {
         this.name = name;
@@ -16,6 +17,10 @@ class Player {
 
     void equipWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+
+    void equipArmor(Armor armor) {
+        this.armor = armor;
     }
 
     void showInformation() {
@@ -31,8 +36,15 @@ class Player {
     }
 
     void getAttacked(double damage) {
+        // this.health -= damage;
+        // System.out.println("Player " + this.name + " is attacked " +" with " + damage + " damage");
+        if (damage > this.armor.defencePower) {
+            damage = damage - this.armor.defencePower;
+        } else {
+            damage = 0;
+        }
         this.health -= damage;
-        System.out.println("Player " + this.name + " is attacked " +" with " + damage + " damage");
+        System.out.println("Player " +  this.name + " is attacked, -" + damage + " hp");
     }
 
 }
@@ -50,6 +62,16 @@ class Weapon {
     void show() {
         System.out.println("Weapon: " + this.name);
         System.out.println("Damage: " + this.damage);
+    }
+}
+
+class Armor {
+    String name;
+    double defencePower;
+
+    Armor(String name, double defencePower) {
+        this.name = name;
+        this.defencePower = defencePower;
     }
 }
 
@@ -96,11 +118,15 @@ public class game {
         Weapon sword = new Weapon("Iron Sword",40);
         Weapon mace = new Weapon("Wooden Mace",15);
 
+        Armor armor1 = new Armor("Chain armor", 10);
+
         Enemy enemy1 = new Enemy("Goblin", 50);
 
         // player 1
         player1.showInformation();
         player1.equipWeapon(sword);
+        player1.equipArmor(armor1);
+
         player1.weapon.show();
 
         System.out.println("\n");
