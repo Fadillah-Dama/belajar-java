@@ -9,6 +9,7 @@ class Player {
     private Weapon weapon;
     private Armor armor;
     private int baseAttack;
+    private int totalDamage;
 
     public Player(String name) {
         this.name = name;
@@ -20,10 +21,10 @@ class Player {
     }
 
     public void showInfo() {
-        System.out.println("\nName    : " + this.name);
+        System.out.println("Name    : " + this.name);
         System.out.println("Health  : " + this.maxHealth());
         System.out.println("Level   : " + this.level);
-        System.out.println("Attack  : " + this.getAttackPower());
+        System.out.println("Attack  : " + this.getAttackPower() + "\n");
 
     } 
 
@@ -35,16 +36,30 @@ class Player {
         this.armor = armor;
     }
 
-    public void levelUp() {
+    private void levelUp() {
         this.level++;
+        System.out.println("player " + this.name + " level up, now level " + this.level + "\n");
     }
 
     public int maxHealth() {
-        return (this.healthIncrement * this.level) + this.health + this.armor.getDefence(); 
+        if(this.level == 1) return this.health + this.armor.getDefence();
+        return (this.healthIncrement * (this.level - 1)) + this.health + this.armor.getDefence(); 
     }
 
     public int getAttackPower() {
         return this.baseAttack + (this.attackIncrement * this.level) + this.weapon.getDamage();
+    }
+
+    public void attack(Player player) {
+        totalDamage = this.getAttackPower();
+        System.out.println(this.name + " attack " + player.name + " with " + totalDamage + " damage");
+        player.defence(totalDamage);
+        levelUp();
+    }
+
+    public void defence(int totalDamage ) {
+        this.health -= totalDamage;
+        System.out.println(this.name + " receive " + totalDamage + " damage");
     }
 }
 
@@ -81,20 +96,28 @@ class Armor {
 public class Main {
     public static void main(String[] args) {
         Player player1 = new Player("Joko");
-
         Weapon weapon1 = new Weapon("Sword", 20);
         Armor armor1 = new Armor("Chain armor", 50);
 
+        Player player2 = new Player("Yanto");
+        Weapon weapon2 = new Weapon("Axe", 30);
+        Armor armor2 = new Armor("Leather armor", 40);
+
         player1.setWeapon(weapon1);
         player1.setArmor(armor1);
+        player2.setWeapon(weapon2);
+        player2.setArmor(armor2);
 
         player1.showInfo();
-        player1.levelUp();
+        player2.showInfo();
+
+        player1.attack(player2);
+        player2.attack(player1);
 
         player1.showInfo();
-        player1.levelUp();
+        player2.showInfo();
 
-        player1.showInfo();
+        
     }
 }
  
