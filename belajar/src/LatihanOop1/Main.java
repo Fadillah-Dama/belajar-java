@@ -21,10 +21,11 @@ class Player {
     }
 
     public void showInfo() {
-        System.out.println("Name    : " + this.name);
-        System.out.println("Health  : " + this.maxHealth());
+        System.out.println("Player    : " + this.name);
         System.out.println("Level   : " + this.level);
-        System.out.println("Attack  : " + this.getAttackPower() + "\n");
+        System.out.println("Health  : " + this.getHealth() + "/" + this.maxHealth());
+        System.out.println("Attack  : " + this.getAttackPower());
+        System.out.println("Alive   : " + isAlive() + "\n");
 
     } 
 
@@ -42,24 +43,37 @@ class Player {
     }
 
     public int maxHealth() {
-        if(this.level == 1) return this.health + this.armor.getDefence();
+       // if(this.level == 1) return this.health + this.armor.getDefence();
         return (this.healthIncrement * (this.level - 1)) + this.health + this.armor.getDefence(); 
     }
 
-    public int getAttackPower() {
+    public int getHealth() {
+        this.health = (this.healthIncrement * (this.level - 1)) + this.health + this.armor.getDefence();
+        return this.health;
+    }
+
+    private int getAttackPower() {
         return this.baseAttack + (this.attackIncrement * this.level) + this.weapon.getDamage();
     }
 
     public void attack(Player player) {
-        totalDamage = this.getAttackPower();
-        System.out.println(this.name + " attack " + player.name + " with " + totalDamage + " damage");
-        player.defence(totalDamage);
-        levelUp();
+        int damage = this.getAttackPower();
+        System.out.println(this.name + " attacking " + player.name + " with " + damage + " damage");
+        player.defence(damage);
+        //levelUp();
     }
 
-    public void defence(int totalDamage ) {
-        this.health -= totalDamage;
-        System.out.println(this.name + " receive " + totalDamage + " damage");
+    public void defence(int damage ) {
+        this.health -= damage;
+        System.out.println(this.name + " receive " + damage + " damage");
+    }
+
+    private boolean isAlive() {
+        if(this.health <= 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -116,7 +130,6 @@ public class Main {
 
         player1.showInfo();
         player2.showInfo();
-
         
     }
 }
