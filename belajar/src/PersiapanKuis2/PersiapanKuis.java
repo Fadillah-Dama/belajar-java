@@ -1,4 +1,4 @@
-package Pertemuan13;
+package PersiapanKuis2;
 
 import java.util.Scanner;
 
